@@ -41,7 +41,7 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
 .guidebrief b{display:block;color:#fff;font-size:.84rem}
 .guidebrief small{display:block;color:#b6c8d7;font-size:.74rem;margin:2px 0 0}
 @media(max-width:580px){.guideitem{grid-template-columns:118px 1fr;gap:9px;padding:9px}.guideitem img{height:124px}.guideitem p{font-size:.79rem}.guideitem h4{font-size:.89rem}}
-</style>
+#cloudPanel input{display:block;width:100%;background:#0d2134;color:#eef7ff;border:1px solid #3a5b72;border-radius:9px;padding:12px;margin:6px 0 12px}#cloudPanel form button{margin:6px 0 12px}#cloudPanel [hidden]{display:none!important}</style>
 </head>
 <body>
 <header class="top">
@@ -54,7 +54,7 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
   <div class="layout">
     <section>
       <div class="controls"><div class="weekpick"><label for="week">Semana atual</label><select id="week"><option value="1">Semana 1 — adaptação</option><option value="2">Semana 2 — ritmo</option><option value="3">Semana 3 — constância</option><option value="4">Semana 4 — evolução</option></select></div><a class="jumpbtn" href="#acompanhamento">◴ Ver evolução ↓</a><button type="button" id="print" class="ghost">🖨 Imprimir dia</button></div>
-      <nav class="daybar" aria-label="Escolha o dia do treino" id="daybar"></nav>
+      <div id="todaybar" class="weeknote" style="margin-bottom:12px"></div><nav class="daybar" aria-label="Escolha o dia do treino" id="daybar"></nav>
       <div class="dayhead"><div><div class="eyebrow" id="dayname">Segunda-feira</div><h2 id="dayfocus">Corpo inteiro</h2><p id="dayintro"></p></div><span class="pill" id="daytype">Força</span></div>
       <div class="weeknote" id="weeknote"></div>
       <div id="exercises" class="list"></div>
@@ -62,7 +62,7 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
     </section>
     <aside class="sidebar">
       <div class="sidecard"><div class="eyebrow">Seu acompanhamento</div><h3>Progresso desta fase</h3><div class="num" id="allprogress">0%</div><div class="progressouter"><span id="allprogressbar"></span></div><p>Marque cada movimento ao concluir. A cada semana completa você avança automaticamente. O histórico permanece neste navegador.</p><button class="sidebtn" id="resetday">↺ Desmarcar o dia atual</button></div>
-      <div class="sidecard" id="acompanhamento"><div class="eyebrow">Histórico de evolução</div><h3>Meu peso diário</h3><p>Registre o peso todos os dias. Um valor por data, com gráfico e histórico salvos neste navegador. Pese-se preferencialmente nas mesmas condições.</p>
+      <div class="sidecard" id="cloudPanel"><div class="eyebrow">Seus dados protegidos</div><h3>Minha conta</h3><p id="cloudStatus">Entre para acompanhar seu peso e seus treinos em mais de um aparelho.</p><form id="cloudLogin"><label for="cloudEmail">Seu e-mail</label><input id="cloudEmail" type="email" autocomplete="email" required placeholder="voce@exemplo.com"><button type="submit" class="sidebtn">Receber código por e-mail</button></form><form id="cloudVerify" hidden><label for="cloudCode">Código recebido no e-mail</label><input id="cloudCode" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,8}" required placeholder="Código de acesso"><button type="submit" class="sidebtn">Entrar</button></form><button id="cloudSync" type="button" class="sidebtn" hidden>Sincronizar agora</button><button id="cloudLogout" type="button" class="sidebtn" hidden>Sair da minha conta</button><p class="backnote">Acesso privado. Nunca envie sua senha ou código para outras pessoas.</p></div><div class="sidecard" id="acompanhamento"><div class="eyebrow">Histórico de evolução</div><h3>Meu peso diário</h3><p>Registre o peso todos os dias. Um valor por data, com gráfico e histórico salvos neste navegador. Pese-se preferencialmente nas mesmas condições.</p>
 <div class="metric-summary"><div><small>Último peso</small><strong id="latestweight">—</strong></div><div><small>Variação do peso</small><strong id="weightchange">—</strong></div></div>
 <form id="metricsform" class="metricsform">
 <label>Data<input type="date" id="measuredate" required></label>
@@ -73,7 +73,7 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
 <div class="chartbox" id="chartbox" role="img" aria-label="Gráfico histórico de evolução"></div>
 <div style="overflow-x:auto"><table class="history"><thead><tr><th>Data</th><th>Peso (kg)</th><th></th></tr></thead><tbody id="metricshistory"></tbody></table></div>
 <p id="record-count" class="backnote"></p>
-<div class="backupactions"><button type="button" id="exportdata" class="backupbtn">↓ Backup JSON</button><button type="button" id="exportcsv" class="backupbtn secondary">↓ Pesagens CSV</button><button type="button" id="importbutton" class="backupbtn secondary">↑ Restaurar dados</button><input id="importdata" type="file" accept="application/json,.json" class="hidden"></div><p class="backnote">Se trocar de celular, importar o backup JSON recupera as pesagens e os treinos. O GitHub guarda o código do site, não seus registros pessoais.</p></div>
+<div class="backupactions"><button type="button" id="exportdata" class="backupbtn">↓ Guardar uma cópia</button><button type="button" id="exportcsv" class="backupbtn secondary">↓ Baixar meu histórico</button><button type="button" id="importbutton" class="backupbtn secondary">↑ Recuperar meus dados</button><input id="importdata" type="file" accept="application/json,.json" class="hidden"></div><p class="backnote">Suas informações ficam guardadas neste aparelho. Entre na sua conta para sincronizar em outros dispositivos; ou guarde uma cópia de segurança.</p></div>
       <div class="sidecard"><h3>Guia completo do dia</h3><p>Todos os exercícios com quantidade e explicações, além das imagens individuais.</p><div id="dayguidepreview" class="dayguidepreview"></div><button class="sidebtn" type="button" id="posterpreview">Ver guia ilustrado com instruções ↗</button></div>
       <div class="sidecard"><h3>Treinar com segurança</h3><p>Por estar retornando após longo período parado, comece leve. Uma avaliação médica é recomendada antes de iniciar, especialmente considerando o peso atual.</p><div class="notice">Sem saltos, corridas ou exercícios até a exaustão. Pare se sentir dor no peito, tontura, falta de ar fora do habitual ou dor nas articulações. Procure atendimento se houver sintomas importantes.</div><p style="margin-top:12px">Perder 44 kg até dezembro não é uma meta segura para perseguir por conta própria. A meta do mês 1 é construir hábito e melhorar o condicionamento; a alimentação e o acompanhamento profissional contam muito.</p></div>
     </aside>
@@ -91,7 +91,7 @@ state.done ||= {}; state.weights ||= []; state.measurements ||= []; state.comple
 // Migração: registros de peso da versão anterior preservados.
 if(!state.weightMigrationV3){for(const w of state.weights){const q=String(w.date||'').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);const date=q?`${q[3]}-${q[2].padStart(2,'0')}-${q[1].padStart(2,'0')}`:String(w.date||'').slice(0,10);const weight=Number(w.value);if(/^\d{4}-\d{2}-\d{2}$/.test(date)&&Number.isFinite(weight)){state.measurements.push({id:'antigo-'+date+'-'+state.measurements.length,date,weight})}} state.weightMigrationV3=true} 
 const $=id=>document.getElementById(id);
-function save(){try{localStorage.setItem(STORE_KEY,JSON.stringify(state))}catch(err){console.warn('Não foi possível salvar neste navegador.',err)}}
+function save(){try{localStorage.setItem(STORE_KEY,JSON.stringify(state));if(window.flavioCloudSchedule)window.flavioCloudSchedule()}catch(err){console.warn('Não foi possível salvar neste navegador.',err)}}
 function getDay(){return PROGRAM.find(x=>x.id===state.day)||PROGRAM[0]}
 function weekDone(week){return PROGRAM.every(d=>d.ex.every((_,i)=>!!state.done[`${week}:${d.id}:${i}`]))}
 function todayLocal(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
@@ -105,7 +105,7 @@ function phaseNote(day){const weeks={1:'Comece com <b>1 série</b> por exercíci
 function render(){const day=getDay();updateWeekSelector();$('daybar').innerHTML=PROGRAM.map(d=>`<button type="button" data-day="${d.id}" class="${d.id===day.id?'active':''}" aria-pressed="${d.id===day.id}">${d.short}</button>`).join('');$('dayname').textContent=day.name;$('dayfocus').textContent=day.focus;$('dayintro').textContent=day.intro;$('daytype').textContent=day.type==='forca'?'Força':day.type==='cardio'?'Cardio':'Recuperação';$('weeknote').innerHTML=phaseNote(day);$('dayguidepreview').innerHTML=day.ex.map((ex,i)=>`<div class="guidebrief"><span class="numguide">${i+1}.</span><span><b>${ex[0]}</b><small>${dose(day,ex)} • ${ex[3]}</small></span></div>`).join('');
 $('exercises').innerHTML=day.ex.map((ex,i)=>{const done=!!state.done[key(i)];const action=ex[2]==='tempo'||ex[2]==='pausa'||ex[2]==='caminhada'?`<button class="smallbtn" data-timer="${i}" type="button">◷ Cronômetro</button>`:`<button class="smallbtn" data-rest="${i}" type="button">◷ Descansar 60s</button>`;return `<article class="exercise ${done?'done':''}"><div class="visual" role="button" tabindex="0" data-zoom="${i}" aria-label="Ampliar demonstração: ${ex[0]}"><img loading="lazy" src="${IMAGE[ex[4]]}" alt="Ilustração do movimento: ${ex[0]}"><span class="order">${String(i+1).padStart(2,'0')}</span></div><div class="exerciseinfo"><div class="exercisehead"><h3>${ex[0]}</h3><span class="dosage">${dose(day,ex)}</span></div><p class="instruction">${ex[3]}</p><div class="ex-actions"><button class="smallbtn checkbtn" type="button" data-check="${i}" aria-pressed="${done}">${done?'✓ Feito':'○ Marcar feito'}</button>${action}</div></div></article>`}).join('');
 const cnt=day.ex.reduce((n,x,i)=>n+(state.done[key(i)]?1:0),0);$('daycount').textContent=`${cnt} de ${day.ex.length}`;$('daybarprogress').style.width=`${cnt/day.ex.length*100}%`;const doneall=PROGRAM.reduce((n,d)=>n+d.ex.reduce((nn,x,i)=>nn+(state.done[`${state.week}:${d.id}:${i}`]?1:0),0),0);const pct=Math.round(doneall/30*100);$('allprogress').textContent=pct+'%';$('allprogressbar').style.width=pct+'%';renderMeasurements()}
-$('daybar').addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;state.day=b.dataset.day;save();render();window.scrollTo({top:Math.max(0,$('daybar').getBoundingClientRect().top+scrollY-16),behavior:'smooth'})});
+$('daybar').addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;state.day=b.dataset.day;sessionStorage.setItem('flavio-manual-day','1');save();render();window.scrollTo({top:Math.max(0,$('daybar').getBoundingClientRect().top+scrollY-16),behavior:'smooth'})});
 $('week').addEventListener('change',e=>{state.week=Number(e.target.value);$('week-complete-message').classList.add('hidden');save();render()});
 $('exercises').addEventListener('click',e=>{const zoom=e.target.closest('[data-zoom]');if(zoom){const d=getDay();const ex=d.ex[Number(zoom.dataset.zoom)];$('posterDialogTitle').textContent=ex[0];$('fullposter').innerHTML=guideEntry(ex,Number(zoom.dataset.zoom));poster.classList.add('open');$('posterClose').focus();return}const c=e.target.closest('[data-check]');if(c){const k=key(Number(c.dataset.check));const wasDone=!!state.done[k];state.done[k]=!wasDone;save();render();if(!wasDone&&weekDone(state.week)){setTimeout(autoAdvanceWeek,700)}return}const t=e.target.closest('[data-timer],[data-rest]');if(t){const ex=getDay().ex[Number(t.dataset.timer ?? t.dataset.rest)];let seconds=ex[2]==='caminhada'?state.week===1?480:state.week===2?600:720:ex[2]==='reps'||ex[2]==='lado'?60:ex[1];openTimer(seconds,ex[2]==='reps'||ex[2]==='lado'?'Descanso entre séries':ex[0])}});
 $('print').onclick=()=>window.print();
@@ -146,7 +146,57 @@ function openPoster(){const d=getDay();$('posterDialogTitle').textContent=d.name
 function closePoster(){poster.classList.remove('open')};$('openposter').onclick=openPoster;$('posterpreview').onclick=openPoster;$('posterClose').onclick=closePoster;poster.addEventListener('click',e=>{if(e.target===poster)closePoster()});
 const timerModal=$('timerDialog');let timerId=null,timerRemaining=0,timerInitial=0,timerRunning=false;function setTimerView(){$('timerdigits').textContent=`${String(Math.floor(timerRemaining/60)).padStart(2,'0')}:${String(timerRemaining%60).padStart(2,'0')}`;$('timerToggle').textContent=timerRunning?'Pausar':timerRemaining===0?'Reiniciar':'Iniciar'}function clearTick(){if(timerId!==null){clearInterval(timerId);timerId=null}timerRunning=false}function openTimer(seconds,title){clearTick();timerRemaining=timerInitial=seconds;$('timerTitle').textContent=title;$('timercaption').textContent='Sem pressa. Faça pausas se precisar.';setTimerView();timerModal.classList.add('open');$('timerToggle').focus()}function timerAction(){if(timerRunning){clearTick();setTimerView();return}if(timerRemaining<=0)timerRemaining=timerInitial;timerRunning=true;let last=Date.now();timerId=setInterval(()=>{const now=Date.now();const elapsed=Math.floor((now-last)/1000);if(elapsed<1)return;last+=elapsed*1000;timerRemaining=Math.max(0,timerRemaining-elapsed);if(timerRemaining===0){clearTick();$('timercaption').textContent='Tempo encerrado! Continue somente se estiver confortável.';}setTimerView()},250);setTimerView()}
 $('timerToggle').onclick=timerAction;$('timerReset').onclick=()=>{clearTick();timerRemaining=timerInitial;setTimerView()};function closeTimer(){clearTick();timerModal.classList.remove('open')};$('timerClose').onclick=closeTimer;timerModal.addEventListener('click',e=>{if(e.target===timerModal)closeTimer()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePoster();closeTimer()}});
-render();
+const dayIndex=(new Date()).getDay();const dayNames=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];const ids=['','seg','ter','qua','qui','sex','sab'];if(!sessionStorage.getItem('flavio-manual-day')){if(dayIndex>0)state.day=ids[dayIndex];}const topLine=document.getElementById('todaybar');if(topLine)topLine.innerHTML=dayIndex===0?'<strong>Hoje é domingo — dia de descanso.</strong> Você pode consultar os treinos da semana.':`<strong>Hoje é ${dayNames[dayIndex]}.</strong> O treino do dia foi selecionado automaticamente. Você também pode escolher outro dia.`;render();
 </script>
-</body>
+
+<script>
+(function(){
+'use strict';
+const API="https://yrwtszdbpwskovipxzgz.supabase.co",KEY="sb_publishable_6YKH6F3gFbaCecf16CMbEw_YDihAeuD",AUTH_STORE='flavio-supabase-session';
+const $=id=>document.getElementById(id);
+let session=null, pendingEmail='',busy=false,loaded=false,scheduled=null;
+function status(t){$('cloudStatus').textContent=t}
+function headers(token){return {'apikey':KEY,'Authorization':'Bearer '+(token||KEY),'Content-Type':'application/json'}}
+async function request(path,{method='GET',body=null,token=null,prefer=null}={}){const h=headers(token);if(prefer)h.Prefer=prefer;const r=await fetch(API+path,{method,headers:h,body:body===null?null:JSON.stringify(body)});if(!r.ok){const t=await r.text();let e;try{e=JSON.parse(t)}catch{}throw Error(e?.msg||e?.message||e?.error_description||'Falha na conexão ('+r.status+')')}if(r.status===204)return null;const t=await r.text();return t?JSON.parse(t):null}
+function persist(){if(session)localStorage.setItem(AUTH_STORE,JSON.stringify(session));else localStorage.removeItem(AUTH_STORE)}
+async function fresh(){if(!session)return null;if(session.expires_at&&Date.now()<session.expires_at*1000-60000)return session.access_token;const result=await request('/auth/v1/token?grant_type=refresh_token',{method:'POST',body:{refresh_token:session.refresh_token}});session=result;persist();return session.access_token}
+function props(){return {week:state.week,day:state.day,completedWeeks:state.completedWeeks}}
+async function sync(){
+if(!session||busy)return;busy=true;status('Sincronizando seus dados...');try{
+const token=await fresh();const uid=session.user?.id;if(!uid)throw Error('Sessão inválida; entre novamente.');
+const qs='?user_id=eq.'+encodeURIComponent(uid);
+const [profiles,weights,progress]=await Promise.all([
+request('/rest/v1/flavio_training_profile'+qs+'&select=*',{token}),
+request('/rest/v1/flavio_daily_weights'+qs+'&select=*',{token}),
+request('/rest/v1/flavio_exercise_progress'+qs+'&select=*',{token})]);
+const remotePopulated=profiles.length||weights.length||progress.length;
+if(!loaded&&remotePopulated){
+  state.week=profiles[0]?.current_week||state.week;
+  state.completedWeeks=profiles[0]?.completed_weeks||state.completedWeeks;
+  // Abertura mantém o dia real da semana; não reaproveita dia antigo salvo.
+  const byDate=new Map(state.measurements.filter(x=>x?.weight!=null).map(x=>[x.date,x]));
+  for(const w of weights)byDate.set(w.weighed_on,{id:'cloud-'+w.weighed_on,date:w.weighed_on,weight:Number(w.weight_kg)});
+  state.measurements=[...byDate.values()];
+  const oldDone={...state.done};for(const p of progress)oldDone[p.week_number+':'+p.day_id+':'+p.exercise_index]=p.is_done;
+  state.done=oldDone;localStorage.setItem(STORE_KEY,JSON.stringify(state));render();
+}
+loaded=true;
+const weightRows=state.measurements.filter(x=>x.weight!=null&&/^\d{4}-\d{2}-\d{2}$/.test(x.date)).map(x=>({user_id:uid,weighed_on:x.date,weight_kg:Number(x.weight)}));
+const progressRows=Object.entries(state.done).filter(([k,v])=>/^\d+:(seg|ter|qua|qui|sex|sab):[0-4]$/.test(k)&&typeof v==='boolean').map(([k,v])=>{const [w,d,i]=k.split(':');return {user_id:uid,week_number:Number(w),day_id:d,exercise_index:Number(i),is_done:v}});
+await request('/rest/v1/flavio_training_profile?on_conflict=user_id',{method:'POST',token,body:{user_id:uid,current_week:state.week,current_day:state.day,completed_weeks:state.completedWeeks,updated_at:new Date().toISOString()},prefer:'resolution=merge-duplicates,return=minimal'});
+if(weightRows.length)await request('/rest/v1/flavio_daily_weights?on_conflict=user_id,weighed_on',{method:'POST',token,body:weightRows,prefer:'resolution=merge-duplicates,return=minimal'});
+if(progressRows.length)await request('/rest/v1/flavio_exercise_progress?on_conflict=user_id,week_number,day_id,exercise_index',{method:'POST',token,body:progressRows,prefer:'resolution=merge-duplicates,return=minimal'});
+status('Dados protegidos e sincronizados.');$('cloudSync').hidden=false;$('cloudLogout').hidden=false;$('cloudLogin').hidden=true;$('cloudVerify').hidden=true;
+}catch(e){status('Não foi possível sincronizar agora: '+e.message+'. Seus dados continuam salvos neste aparelho.')}finally{busy=false}
+}
+window.flavioCloudSchedule=()=>{if(!session||!loaded)return;clearTimeout(scheduled);scheduled=setTimeout(sync,1200)};
+$('cloudLogin').addEventListener('submit',async e=>{e.preventDefault();pendingEmail=$('cloudEmail').value.trim();try{status('Enviando código...');await request('/auth/v1/otp',{method:'POST',body:{email:pendingEmail,create_user:true}});$('cloudVerify').hidden=false;status('Confira sua caixa de entrada. Digite o código recebido (se o e-mail trouxe apenas um link, use o link).')}catch(err){status('Não foi possível enviar o código: '+err.message)}});
+$('cloudVerify').addEventListener('submit',async e=>{e.preventDefault();try{status('Verificando código...');session=await request('/auth/v1/verify',{method:'POST',body:{email:pendingEmail,token:$('cloudCode').value.trim(),type:'email'}});persist();loaded=false;await sync()}catch(err){status('Código inválido ou expirado: '+err.message)}});
+$('cloudSync').addEventListener('click',sync);
+$('cloudLogout').addEventListener('click',async()=>{const prior=session;session=null;loaded=false;persist();$('cloudLogin').hidden=false;$('cloudVerify').hidden=true;$('cloudSync').hidden=true;$('cloudLogout').hidden=true;status('Você saiu da nuvem. Os dados deste navegador permanecem salvos.');if(prior)try{await request('/auth/v1/logout',{method:'POST',token:prior.access_token})}catch{}});
+try{session=JSON.parse(localStorage.getItem(AUTH_STORE)||'null')}catch{}
+if(session){$('cloudLogin').hidden=true;sync()}
+else status('Entre com seu e-mail para sincronizar pesos e treinos entre aparelhos.');
+})();
+</script></body>
 </html>
