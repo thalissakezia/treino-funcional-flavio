@@ -41,7 +41,10 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
 .guidebrief b{display:block;color:#fff;font-size:.84rem}
 .guidebrief small{display:block;color:#b6c8d7;font-size:.74rem;margin:2px 0 0}
 @media(max-width:580px){.guideitem{grid-template-columns:118px 1fr;gap:9px;padding:9px}.guideitem img{height:124px}.guideitem p{font-size:.79rem}.guideitem h4{font-size:.89rem}}
-#cloudPanel input{display:block;width:100%;background:#0d2134;color:#eef7ff;border:1px solid #3a5b72;border-radius:9px;padding:12px;margin:6px 0 12px}#cloudPanel form button{margin:6px 0 12px}#cloudPanel [hidden]{display:none!important}</style>
+#cloudPanel input{display:block;width:100%;background:#0d2134;color:#eef7ff;border:1px solid #3a5b72;border-radius:9px;padding:12px;margin:6px 0 12px}#cloudPanel form button{margin:6px 0 12px}#cloudPanel [hidden]{display:none!important}
+.account-shortcut{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:-14px 0 24px}.account-shortcut span{color:var(--muted);font-size:.85rem}.account-cta{background:var(--green);color:#062e2a;padding:12px 15px;border-radius:12px;font-weight:850;text-decoration:none;display:inline-flex;align-items:center;gap:10px}.account-cta:hover{filter:brightness(1.08)}#cloudPanel{scroll-margin-top:18px}#cloudPanel:target{outline:2px solid var(--cyan);outline-offset:3px}
+@media(max-width:580px){.account-shortcut{margin:-8px 0 19px;gap:6px}.account-shortcut span{font-size:.76rem}.account-cta{width:100%;justify-content:center;padding:12px 10px}.controls .jumpbtn{margin-left:0}}
+</style>
 </head>
 <body>
 <header class="top">
@@ -49,11 +52,12 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
   <h1>Um passo por dia.<br><em>Mais forte a cada semana.</em></h1>
   <p class="lead">Seu treino de segunda a sábado: figuras compactas, instruções ao lado e histórico de pesagens diárias. As semanas avançam automaticamente quando os seis dias são concluídos.</p>
   <div class="chips"><span>31 anos</span><span>1,84 m</span><span>154 kg informados</span><span>6 dias organizados</span><span>Gratuito e offline</span></div>
+  <div class="account-shortcut"><a class="account-cta" href="#cloudPanel" aria-label="Ir para a seção Minha conta e entrar com e-mail">☁ Entrar / Minha conta <span aria-hidden="true">↓</span></a><span>Acesse seus treinos e seu histórico em outros aparelhos.</span></div>
 </header>
 <main>
   <div class="layout">
     <section>
-      <div class="controls"><div class="weekpick"><label for="week">Semana atual</label><select id="week"><option value="1">Semana 1 — adaptação</option><option value="2">Semana 2 — ritmo</option><option value="3">Semana 3 — constância</option><option value="4">Semana 4 — evolução</option></select></div><a class="jumpbtn" href="#acompanhamento">◴ Ver evolução ↓</a><button type="button" id="print" class="ghost">🖨 Imprimir dia</button></div>
+      <div class="controls"><div class="weekpick"><label for="week">Semana atual</label><select id="week"><option value="1">Semana 1 — adaptação</option><option value="2">Semana 2 — ritmo</option><option value="3">Semana 3 — constância</option><option value="4">Semana 4 — evolução</option></select></div><a class="jumpbtn" href="#cloudPanel">☁ Minha conta ↓</a><a class="jumpbtn" href="#acompanhamento">◴ Ver evolução ↓</a><button type="button" id="print" class="ghost">🖨 Imprimir dia</button></div>
       <div id="todaybar" class="weeknote" style="margin-bottom:12px"></div><nav class="daybar" aria-label="Escolha o dia do treino" id="daybar"></nav>
       <div class="dayhead"><div><div class="eyebrow" id="dayname">Segunda-feira</div><h2 id="dayfocus">Corpo inteiro</h2><p id="dayintro"></p></div><span class="pill" id="daytype">Força</span></div>
       <div class="weeknote" id="weeknote"></div>
