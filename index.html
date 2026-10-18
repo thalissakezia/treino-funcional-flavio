@@ -219,9 +219,31 @@ $('cloudLink').addEventListener('submit',async e=>{
 });
 $('cloudSync').addEventListener('click',sync);
 $('cloudLogout').addEventListener('click',async()=>{const prior=session;session=null;loaded=false;persist();$('cloudLogin').hidden=false;$('cloudVerify').hidden=true;$('cloudSync').hidden=true;$('cloudLogout').hidden=true;status('Você saiu da nuvem. Os dados deste navegador permanecem salvos.');if(prior)try{await request('/auth/v1/logout',{method:'POST',token:prior.access_token})}catch{}});
-try{session=JSON.parse(localStorage.getItem(AUTH_STORE)||'null')}catch{}
-if(session){$('cloudLogin').hidden=true;sync()}
-else status('Entre com seu e-mail para sincronizar pesos e treinos entre aparelhos.');
+async function restoreSession(){
+  const fragment=new URLSearchParams(window.location.hash.replace(/^#/,''));
+  const access=fragment.get('access_token'),refresh=fragment.get('refresh_token');
+  if(access&&refresh){
+    try{
+      status('Concluindo acesso por e-mail...');
+      const user=await request('/auth/v1/user',{token:access});
+      session={access_token:access,refresh_token:refresh,user,expires_at:Math.floor(Date.now()/1000)+Number(fragment.get('expires_in')||3600)};
+      persist();
+      $('cloudLogin').hidden=true;
+      loaded=false;
+      await sync();
+    }catch(err){status('Não foi possível concluir o acesso: '+err.message)}
+    finally{history.replaceState(null,'',location.pathname+location.search)}
+    return;
+  }
+  if(fragment.has('error_description')){
+    status('O link expirou ou foi recusado. Solicite outro e-mail.');
+    history.replaceState(null,'',location.pathname+location.search);
+  }
+  try{session=JSON.parse(localStorage.getItem(AUTH_STORE)||'null')}catch{}
+  if(session){$('cloudLogin').hidden=true;sync()}
+  else if(!fragment.has('error_description'))status('Entre com seu e-mail para sincronizar pesos e treinos entre aparelhos.');
+}
+restoreSession();
 })();
 </script></body>
 </html>
