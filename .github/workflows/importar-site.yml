@@ -1,0 +1,44 @@
+name: Importar site do Flávio
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'treino_flavio_site_atualizado.zip'
+
+permissions:
+  contents: write
+
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Conferir e extrair o pacote
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f treino_flavio_site_atualizado.zip
+          unzip -l treino_flavio_site_atualizado.zip | grep -q 'index.html'
+          unzip -o treino_flavio_site_atualizado.zip -d .
+          test -f index.html
+          test -f imagens/seg_1.webp
+
+      - name: Salvar site no repositório
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html imagens/ README.md
+          if git diff --cached --quiet; then
+            echo "Sem alterações no site."
+          else
+            git commit -m "site: atualizar treino do Flávio via pacote ZIP"
+            git push
+          fi
