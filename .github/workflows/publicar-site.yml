@@ -1,4 +1,5 @@
 name: Publicar Treino do Flávio
+# Reexecutar após ativação do GitHub Pages em Settings > Pages.
 
 on:
   push:
