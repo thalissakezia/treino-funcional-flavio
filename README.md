@@ -1,23 +1,21 @@
 # Treino Funcional do Flávio
 
-Site estático e responsivo para acompanhar exercícios funcionais em casa, de segunda a sábado.
+Site responsivo de treinos em casa, com imagens completas em cartões compactos, cronômetro, avanço automático de semanas, peso, medidas e gráficos.
 
-## Funcionalidades
-- Cards compactos: imagens completas à esquerda e orientações ao lado
-- 30 movimentos por semana, controle de conclusão e cronômetro
-- Avanço automático para a semana seguinte ao concluir a semana atual
-- Histórico de peso, cintura, peito, quadril, braços e coxas
-- Gráficos, backup JSON, restauração de dados e exportação CSV
-- Uso gratuito, sem API paga ou assinatura
+## Atualizar o site pelo celular
 
-## Publicação do site
-1. Extraia o ZIP do projeto fornecido no ChatGPT.
-2. Envie **o arquivo `index.html` e a pasta `imagens/`** para a raiz deste repositório, preservando os nomes de arquivo. O README pode permanecer.
-3. Em **Settings > Pages > Build and deployment**, selecione **Deploy from a branch**, branch **main**, pasta **/(root)**.
-4. O GitHub Pages fornecerá a URL do site.
+1. Baixe o arquivo `treino_flavio_site_atualizado.zip` disponibilizado no ChatGPT.
+2. Abra este repositório no GitHub e escolha **Add file > Upload files**.
+3. Envie **o ZIP inteiro com esse nome**, na raiz do repositório, e confirme a alteração na branch `main`.
+4. A automação de GitHub Actions **Importar site do Flávio** extrai `index.html` e a pasta `imagens/` para o repositório.
+5. Após a importação, ative **Settings > Pages > Deploy from a branch**, branch `main`, pasta `/ (root)`.
 
-## Armazenamento de dados
-Os registros ficam salvos no `localStorage` do navegador usado para acessar o site. **Não há sincronização na nuvem nesta versão.** Caso troque de celular ou limpe os dados do navegador, importe um backup JSON criado anteriormente. O GitHub armazena o código e imagens do site, mas não as medidas pessoais registradas no navegador.
+Para atualização futura, envie uma versão atualizada do ZIP com o mesmo nome. Também é possível extrair o pacote localmente e subir os arquivos manualmente.
 
-## Nota
-Guia educativo de atividade física. Por causa de sedentarismo prolongado e peso atual, é recomendado obter avaliação clínica antes de iniciar. Não use o treino como substituto de acompanhamento profissional.
+## Histórico pessoal e privacidade
+
+Os dados são salvos automaticamente no **navegador local** por `localStorage`: conclusão dos treinos, semanas, peso e medidas. Se mudar de celular, use **Backup JSON** e **Restaurar dados**. O GitHub Pages não fornece sincronização de registros privados entre aparelhos. O repositório hospeda apenas código e ilustrações.
+
+## Segurança
+
+Guia educativo de atividade física. Considerar avaliação médica antes de iniciar devido ao sedentarismo prolongado e ao peso atual. Não acelerar cargas ou volume indiscriminadamente.
