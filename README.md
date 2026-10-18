@@ -1,26 +1,36 @@
-# Treino Funcional do Flávio
+# Treino funcional do Flávio
 
-Versão atual: diário de **peso (kg)**, imagens compactas, guia ilustrado com explicações, séries, cronômetro e avanço automático de semana.
+Treinos ilustrados e compactos de segunda a sábado, seleção automática do dia atual, controle das semanas, registro diário do peso, gráfico de evolução e sincronização de dados privados usando Supabase.
 
-## Acesso ao site
-Para publicar, abra **Settings > Pages > Build and deployment**, selecione **Deploy from a branch**, branch **main** e pasta **/(root)**. O GitHub Pages publicará o `index.html` e a pasta `imagens/`.
+## Publicação — falta ativar o GitHub Pages
 
-## Histórico e privacidade
-O histórico é salvo no navegador, por `localStorage` usando a chave `flavio-funcional-v1`. O site **ainda não sincroniza** os pesos e treinos com a nuvem. O repositório é público, portanto **NÃO envie JSONs de backup, dados de peso, senhas ou credenciais para o GitHub**.
+O arquivo do site (`index.html` e `imagens/`) está no repositório. A automação [Publicar Treino do Flávio](../../actions/workflows/publicar-site.yml) foi criada e validou os arquivos, porém o job `Configurar Pages` falhou porque o Pages ainda não está ativado.
 
-Para mudar de dispositivo ou do arquivo local para o site publicado: use **Backup JSON** no endereço antigo e **Restaurar dados** na página publicada. Faça backup antes de limpar os dados do navegador.
+Faça **uma vez**:
+1. Abra **Settings > Pages** em `https://github.com/thalissakezia/treino-funcional-flavio/settings/pages`.
+2. Em **Build and deployment > Source**, selecione **GitHub Actions**. Salve se houver botão.
+3. O próximo push em `main` publicará o site automaticamente, ou acione **Run workflow** na aba Actions.
 
-## Atualizações
-A página principal já está atualizada diretamente em `index.html`. O arquivo `treino_flavio_site_atualizado.zip` continua guardado como cópia antiga. **Não reenvie esse ZIP antigo**, pois a automação importadora substituirá o site atual pela versão anterior.
+Endereço esperado após publicação: `https://thalissakezia.github.io/treino-funcional-flavio/`.
 
-## Sincronização futura
-O melhor próximo passo é autenticação individual e banco de dados privado (por exemplo Supabase Auth + Postgres, com Row Level Security). O e-mail não deve ser tratado como senha. A configuração de nuvem ainda requer escolha e autorização do titular dos registros.
+## Supabase — falta concluir as configurações de autenticação
 
-## Concluir autenticação por e-mail (Supabase)
-Projeto: `yrwtszdbpwskovipxzgz`. Em **Authentication > Email Templates > Magic Link**, troque o corpo para um modelo contendo **`{{ .Token }}`** para o e-mail levar um código numérico digitável em vez de depender apenas de link. Em **Authentication > URL Configuration**, configure:
-- **Site URL:** `https://thalissakezia.github.io/treino-funcional-flavio/`
-- **Redirect URLs:** `https://thalissakezia.github.io/treino-funcional-flavio/**`
+O projeto gratuito `treino-funcional-flavio` está ativo. O banco contém três tabelas com Row Level Security por usuário autenticado. O cliente web usa somente a **publishable key** (segura para frontend), nunca uma chave secreta.
 
-O cliente usa apenas `sb_publishable_...` no navegador; nunca adicione service_role nem senhas. Para testar sincronização, entre no primeiro aparelho, registre um peso e marque um exercício; depois entre no segundo com o mesmo e-mail e verifique os dados.
+Configure uma vez no painel do projeto:
+1. Em **Authentication > URL Configuration**:
+   - **Site URL:** `https://thalissakezia.github.io/treino-funcional-flavio/`
+   - **Redirect URLs:** inclua `https://thalissakezia.github.io/treino-funcional-flavio/**`
+2. Em **Authentication > Email Templates > Magic Link**, cole o conteúdo de [`supabase/email-templates/magic-link.html`](supabase/email-templates/magic-link.html) e salve, para enviar código e link no mesmo e-mail.
 
-**Importante:** antes de testar uma nova instalação, exporte a cópia dos registros atuais. Nesta versão, o backup manual continua disponível. O envio por e-mail e o fluxo completo não foram testados ainda.
+O site suporta tanto a digitação do código quanto o clique em um link de autenticação, quando o domínio está autorizado. Enquanto o modelo de e-mail não for atualizado, há também um campo para colar um link de acesso recebido.
+
+## Privacidade e backup
+
+Pesagens e exercícios são vinculados à conta autenticada no banco privado. O navegador guarda uma cópia local para uso offline e o site disponibiliza **Guardar uma cópia** e **Recuperar meus dados**. A sincronização em dois aparelhos ainda precisa ser testada com um login verdadeiro depois das configurações acima.
+
+**Nunca publique** arquivos com seus pesos, backups pessoais, senhas ou tokens de autenticação no GitHub. Este repositório é público.
+
+## Manutenção
+
+A atualização é feita diretamente em `index.html` e `imagens/`. A automação antiga que importava o ZIP foi desativada, para evitar a substituição da versão atual por um pacote desatualizado.
