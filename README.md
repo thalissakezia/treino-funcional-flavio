@@ -1,21 +1,22 @@
-# Treino Funcional do Flávio
+# Treino funcional do Flávio
 
-Site responsivo de treinos em casa, com imagens completas em cartões compactos, cronômetro, avanço automático de semanas, peso, medidas e gráficos.
+Site responsivo com 30 exercícios, imagens compactas, cronômetro, histórico de semanas, medidas, gráficos e exportação de dados.
 
-## Atualizar o site pelo celular
+## Atualizar automaticamente pelo GitHub
 
-1. Baixe o arquivo `treino_flavio_site_atualizado.zip` disponibilizado no ChatGPT.
-2. Abra este repositório no GitHub e escolha **Add file > Upload files**.
-3. Envie **o ZIP inteiro com esse nome**, na raiz do repositório, e confirme a alteração na branch `main`.
-4. A automação de GitHub Actions **Importar site do Flávio** extrai `index.html` e a pasta `imagens/` para o repositório.
-5. Após a importação, ative **Settings > Pages > Deploy from a branch**, branch `main`, pasta `/ (root)`.
+O repositório `thalissakezia/treino-funcional-flavio` contém o fluxo `.github/workflows/importar-site.yml`.
 
-Para atualização futura, envie uma versão atualizada do ZIP com o mesmo nome. Também é possível extrair o pacote localmente e subir os arquivos manualmente.
+1. Faça upload do **ZIP completo** chamado `treino_flavio_site_atualizado.zip` para a raiz do repositório (branch `main`).
+2. A ação do GitHub deve extrair `index.html` e `imagens/` e fazer commit dos arquivos.
+3. Acompanhe em **Actions > Importar site do Flávio** e confirme se a execução passou.
+4. Configure **Settings > Pages** para **Deploy from a branch**, `main`, `/ (root)`.
 
-## Histórico pessoal e privacidade
+Se Actions estiver desativado ou não puder escrever na branch, extraia o ZIP no celular/computador e envie manualmente `index.html` e a pasta `imagens/`, mantendo a estrutura.
 
-Os dados são salvos automaticamente no **navegador local** por `localStorage`: conclusão dos treinos, semanas, peso e medidas. Se mudar de celular, use **Backup JSON** e **Restaurar dados**. O GitHub Pages não fornece sincronização de registros privados entre aparelhos. O repositório hospeda apenas código e ilustrações.
+## Dados
 
-## Segurança
+A persistência nesta versão é via `localStorage`: conclusão dos exercícios, semanas e medidas, no navegador. Ao concluir os 30 exercícios abre-se a semana seguinte, sem apagar histórico. A partir da semana 5 o plano mantém a intensidade da semana 4, sem aumento automático de carga.
 
-Guia educativo de atividade física. Considerar avaliação médica antes de iniciar devido ao sedentarismo prolongado e ao peso atual. Não acelerar cargas ou volume indiscriminadamente.
+**Não existe sincronização em nuvem nesta versão.** Utilize a função **Backup JSON** e guarde o arquivo com segurança. Para mudar de aparelho ou mudar o endereço/origem do site (por exemplo, de arquivo baixado para GitHub Pages), utilize **Restaurar dados**. O CSV contém apenas medidas, enquanto o JSON inclui também as semanas e exercícios marcados.
+
+Dados pessoais não são enviados ao GitHub. O repositório está público, mas contém apenas arquivos do site e desenhos.
