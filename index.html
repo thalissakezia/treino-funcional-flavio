@@ -222,7 +222,20 @@ $('cloudLink').addEventListener('submit',async e=>{
   }catch(err){status('Não foi possível usar o link: '+err.message)}
 });
 $('cloudSync').addEventListener('click',sync);
-$('cloudLogout').addEventListener('click',async()=>{const prior=session;session=null;loaded=false;persist();$('cloudLogin').hidden=false;$('cloudVerify').hidden=true;$('cloudSync').hidden=true;$('cloudLogout').hidden=true;status('Você saiu da nuvem. Os dados deste navegador permanecem salvos.');if(prior)try{await request('/auth/v1/logout',{method:'POST',token:prior.access_token})}catch{}});
+$('cloudLogout').addEventListener('click',async()=>{
+  if(!session)return;
+  $('cloudLogout').disabled=true;
+  status('Encerrando seus acessos com segurança...');
+  try{
+    const token=await fresh();
+    await request('/auth/v1/logout?scope=global',{method:'POST',token});
+    status('Sessões encerradas. Para voltar a entrar, solicite um novo e-mail de acesso.');
+  }catch(err){
+    status('A conta foi desconectada deste navegador, mas não foi possível confirmar o encerramento dos demais acessos. Tente entrar novamente e sair de todas as sessões.');
+  }finally{
+    session=null;loaded=false;persist();$('cloudLogin').hidden=false;$('cloudVerify').hidden=true;$('cloudLink').hidden=true;$('cloudShowLink').hidden=true;$('cloudSync').hidden=true;$('cloudLogout').hidden=true;$('cloudLogout').disabled=false;
+  }
+});
 async function restoreSession(){
   const fragment=new URLSearchParams(window.location.hash.replace(/^#/,''));
   const access=fragment.get('access_token'),refresh=fragment.get('refresh_token');
