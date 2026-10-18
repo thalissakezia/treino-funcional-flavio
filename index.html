@@ -156,7 +156,7 @@ const API="https://yrwtszdbpwskovipxzgz.supabase.co",KEY="sb_publishable_6YKH6F3
 const $=id=>document.getElementById(id);
 let session=null, pendingEmail='',busy=false,loaded=false,scheduled=null;
 function status(t){$('cloudStatus').textContent=t}
-function headers(token){return {'apikey':KEY,'Authorization':'Bearer '+(token||KEY),'Content-Type':'application/json'}}
+function headers(token){const h={'apikey':KEY,'Content-Type':'application/json'};if(token)h.Authorization='Bearer '+token;return h}
 async function request(path,{method='GET',body=null,token=null,prefer=null}={}){const h=headers(token);if(prefer)h.Prefer=prefer;const r=await fetch(API+path,{method,headers:h,body:body===null?null:JSON.stringify(body)});if(!r.ok){const t=await r.text();let e;try{e=JSON.parse(t)}catch{}throw Error(e?.msg||e?.message||e?.error_description||'Falha na conexão ('+r.status+')')}if(r.status===204)return null;const t=await r.text();return t?JSON.parse(t):null}
 function persist(){if(session)localStorage.setItem(AUTH_STORE,JSON.stringify(session));else localStorage.removeItem(AUTH_STORE)}
 async function fresh(){if(!session)return null;if(session.expires_at&&Date.now()<session.expires_at*1000-60000)return session.access_token;const result=await request('/auth/v1/token?grant_type=refresh_token',{method:'POST',body:{refresh_token:session.refresh_token}});session=result;persist();return session.access_token}
