@@ -50,60 +50,62 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
 .cloud-identity[hidden]{display:none!important}
 #cloudTopState{overflow-wrap:anywhere}
 
-/* Conta compacta, próxima do início do treino */
-.account-shortcut{margin:-12px 0 14px!important;gap:0!important}
-.account-cta.account-mini{display:inline-flex;width:auto;min-height:34px;padding:6px 11px;border:1px solid #335f66;background:#16393e;color:#a8f7d6;border-radius:100px;font-size:.78rem;line-height:1.3;gap:6px;box-shadow:none}
-.account-panel{scroll-margin-top:14px;display:grid;gap:4px;margin:0 0 18px;padding:12px 15px;background:var(--panel);border:1px solid #2d4858;border-radius:14px}
-.account-panel:target{border-color:var(--cyan)}
-.account-line{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.account-main{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 140px}
-.account-icon{width:32px;height:32px;flex:0 0 32px;display:grid;place-items:center;background:#153947;border:1px solid #346575;border-radius:10px;font-size:16px}
-.account-maincopy{min-width:0}.account-maincopy h2{font-size:.9rem;line-height:1.2;margin:0 0 3px}
-.account-panel .cloud-identity{display:flex;flex-direction:row;align-items:baseline;flex-wrap:wrap;gap:5px;background:none;border:0;padding:0;margin:0;font-size:.77rem}
-.account-panel .cloud-identity strong{color:var(--green);font-size:.75rem}
-.account-panel .cloud-identity span{color:#bdcedc;font-size:.73rem;overflow-wrap:anywhere}
-.account-panel .cloud-identity[hidden]{display:none!important}
-.account-actions{display:flex;gap:7px;align-items:center;flex:0 0 auto}
-.account-actions .sidebtn{width:auto;margin:0;padding:8px 10px;font-size:.76rem;line-height:1.25;white-space:nowrap}
-.account-panel #cloudStatus{color:#9fc4cd;font-size:.73rem;line-height:1.45;margin:0}
-.account-login{display:grid;gap:6px;margin-top:5px}
-.account-login label{font-size:.78rem;color:#c0d5df}
-.account-loginrow{display:flex;gap:8px;align-items:center}
-#cloudPanel .account-login input{flex:1;min-width:0;margin:0}
-.account-loginrow .sidebtn{width:auto;margin:0;white-space:nowrap;text-align:center;font-size:.81rem;padding:11px 12px}
-.account-login small{font-size:.71rem;color:var(--muted);line-height:1.4}
-@media(max-width:580px){.account-panel{padding:11px 12px;margin-bottom:15px}.account-actions .sidebtn{font-size:.73rem;padding:8px 9px}.account-main{flex-basis:130px}.account-line{gap:8px}.account-shortcut{margin:-10px 0 10px!important}}
+/* Menu compacto da conta: ocupa apenas o canto do cabeçalho quando fechado */
+.brand{position:relative;overflow:visible}
+.brand-name{display:flex;align-items:center;min-width:0;gap:8px}
+.account-menu{position:relative;flex:0 0 auto;z-index:15}
+.account-menu summary{list-style:none}
+.account-menu summary::-webkit-details-marker{display:none}
+.account-trigger{border:1px solid #426176;background:#142b3d;color:#e1eff6;min-height:34px;padding:6px 10px;border-radius:100px;display:flex;align-items:center;gap:6px;letter-spacing:0;text-transform:none;font-size:.76rem;font-weight:750;cursor:pointer}
+.account-trigger-icon{font-size:1.1rem;line-height:1}
+.account-trigger:hover,.account-menu[open] .account-trigger{background:#203e50;border-color:var(--cyan)}
+.account-state-dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:#ffcc7b;box-shadow:0 0 0 2px #ffcc7b22;flex:0 0 auto}
+.account-state-dot.connected{background:var(--green);box-shadow:0 0 0 2px #66e1ab29}
+.account-popup{position:absolute;right:0;top:calc(100% + 9px);width:min(340px,calc(100vw - 30px));padding:15px;background:#102238;border:1px solid #466580;border-radius:14px;box-shadow:0 18px 45px #000a;color:var(--ink);font-weight:400;letter-spacing:normal;text-transform:none;z-index:25}
+.account-popup-head{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.account-popup-head strong{font-size:.98rem}
+.account-private{color:#a2b8c8;font-size:.7rem}
+.account-popup p{font-size:.8rem;line-height:1.46;font-weight:400;color:#bad4e1;margin:7px 0 9px;letter-spacing:normal}
+.account-popup .cloud-identity{display:grid;gap:3px;background:#133830;border:1px solid #306b58;border-radius:9px;padding:9px;margin:8px 0;color:#e5ffef;font-size:.84rem;text-transform:none;letter-spacing:normal}
+.account-popup .cloud-identity strong{color:#92f1bd;font-size:.82rem}
+.account-popup .cloud-identity span{font-size:.78rem;overflow-wrap:anywhere;color:#dcecf3}
+.account-popup .cloud-identity[hidden]{display:none!important}
+.account-popup .account-actions{display:flex;gap:7px;margin-top:8px}
+.account-popup .account-actions .sidebtn{width:auto;flex:1 1 0;text-align:center;margin:0;padding:9px 10px;font-size:.78rem}
+.account-popup .account-login{display:grid;gap:7px;margin-top:8px}
+.account-popup .account-login label{font-size:.78rem;color:#d7e6f1}
+.account-popup #cloudEmail{width:100%;min-width:0;margin:0;display:block;padding:11px;border-radius:9px;background:#0c1d30;border:1px solid #42617a;color:#fff;letter-spacing:normal;text-transform:none}
+.account-popup .account-login .sidebtn{width:100%;margin:0;text-align:center;padding:10px}
+.account-popup .account-login small{font-size:.73rem;color:#a7bed0;font-weight:400;letter-spacing:normal;text-transform:none}
+@media(max-width:580px){.brand{font-size:.73rem;letter-spacing:.06em}.brand-name{gap:4px}.brandmark{width:30px;height:30px;margin-right:4px}.account-trigger{padding:6px 8px;min-height:32px;font-size:.74rem}.account-popup{width:min(330px,calc(100vw - 24px));padding:13px}}
 </style>
 </head>
 <body>
 <header class="top">
-  <div class="brand"><div><span class="brandmark">F</span> TREINO DO FLÁVIO</div><small>EM CASA · FUNCIONAL · INICIANTE</small></div>
+  <div class="brand"><div class="brand-name"><span class="brandmark">F</span> TREINO DO FLÁVIO</div><details class="account-menu" id="cloudPanel">
+  <summary id="cloudMenuTrigger" class="account-trigger" aria-label="Abrir opções da conta"><span class="account-trigger-icon" aria-hidden="true">♙</span><span id="cloudTopState">Conta</span><span id="cloudStateDot" class="account-state-dot" aria-hidden="true"></span></summary>
+  <div class="account-popup" aria-label="Detalhes da conta">
+    <div class="account-popup-head"><strong>Minha conta</strong><span class="account-private">🔒 Privada</span></div>
+    <div id="cloudIdentity" class="cloud-identity" hidden><strong>✓ Conectado</strong><span id="cloudEmailDisplay"></span></div>
+    <p id="cloudStatus" role="status" aria-live="polite">Entre para salvar seus treinos e pesagens na nuvem.</p>
+    <form id="cloudLogin" class="account-login">
+      <label for="cloudEmail">Seu Gmail</label>
+      <input id="cloudEmail" type="email" autocomplete="email" inputmode="email" required placeholder="Digite seu e-mail">
+      <button type="submit" id="cloudLoginButton" class="sidebtn">Enviar link para entrar</button>
+      <small>Depois, basta tocar no link recebido no e-mail.</small>
+    </form>
+    <div class="account-actions">
+      <button id="cloudSync" type="button" class="sidebtn" hidden>↻ Sincronizar</button>
+      <button id="cloudLogout" type="button" class="sidebtn" hidden>Sair</button>
+    </div>
+  </div>
+</details></div>
   <h1>Um passo por dia.<br><em>Mais forte a cada semana.</em></h1>
   <p class="lead">Seu treino de segunda a sábado: figuras compactas, instruções ao lado e histórico de pesagens diárias. As semanas avançam automaticamente quando os seis dias são concluídos.</p>
   <div class="chips"><span>31 anos</span><span>1,84 m</span><span>154 kg informados</span><span>6 dias organizados</span><span>Gratuito e offline</span></div>
-  <div class="account-shortcut"><a id="cloudTopState" class="account-cta account-mini" href="#cloudPanel" aria-label="Abrir opções da minha conta">☁ Entrar na conta ↓</a></div>
+  
 </header>
 <main>
-  <section class="account-panel" id="cloudPanel" aria-label="Conta e sincronização">
-  <div class="account-line">
-    <div class="account-main">
-      <span class="account-icon" aria-hidden="true">🔒</span>
-      <div class="account-maincopy"><h2>Minha conta</h2>
-        <div id="cloudIdentity" class="cloud-identity" hidden><strong>✓ Conectado</strong><span id="cloudEmailDisplay"></span></div>
-      </div>
-    </div>
-    <div class="account-actions">
-      <button id="cloudSync" type="button" class="sidebtn" hidden>↻ Sincronizar</button>
-      <button id="cloudLogout" type="button" class="sidebtn" hidden>↪ Sair</button>
-    </div>
-  </div>
-  <p id="cloudStatus" role="status" aria-live="polite">Entre para salvar seus treinos e pesagens na nuvem.</p>
-  <form id="cloudLogin" class="account-login">
-    <label for="cloudEmail">Seu e-mail</label>
-    <div class="account-loginrow"><input id="cloudEmail" type="email" autocomplete="email" inputmode="email" required placeholder="Digite seu e-mail"><button type="submit" id="cloudLoginButton" class="sidebtn">Enviar link</button></div>
-    <small>Na primeira vez, toque no link enviado ao seu e-mail. O acesso permanecerá salvo neste navegador enquanto a sessão for válida.</small>
-  </form>
-</section>
   <div class="layout">
     <section>
       <div class="controls"><div class="weekpick"><label for="week">Semana atual</label><select id="week"><option value="1">Semana 1 — adaptação</option><option value="2">Semana 2 — ritmo</option><option value="3">Semana 3 — constância</option><option value="4">Semana 4 — evolução</option></select></div><a class="jumpbtn" href="#acompanhamento">◴ Ver evolução ↓</a><button type="button" id="print" class="ghost">🖨 Imprimir dia</button></div>
@@ -224,7 +226,9 @@ function updateAccountUI(){
  $('cloudSync').hidden=!logged;
  $('cloudLogout').hidden=!logged;
  $('cloudEmailDisplay').textContent=logged?(session.user.email||'Conta autenticada'):'';
- $('cloudTopState').textContent=logged?'☁ Conta conectada ↓':'☁ Entrar na conta ↓';
+ $('cloudTopState').textContent='Conta';
+ $('cloudStateDot').classList.toggle('connected',logged);
+ $('cloudMenuTrigger').setAttribute('aria-label',logged?'Conta conectada. Abrir opções.':'Entrar na conta. Abrir opções.');
 }
 function headers(token){const h={'apikey':KEY,'Content-Type':'application/json'};if(token)h.Authorization='Bearer '+token;return h}
 async function request(path,{method='GET',body=null,token=null,prefer=null}={}){const h=headers(token);if(prefer)h.Prefer=prefer;const r=await fetch(API+path,{method,headers:h,body:body===null?null:JSON.stringify(body)});if(!r.ok){const t=await r.text();let e;try{e=JSON.parse(t)}catch{}throw Error(e?.msg||e?.message||e?.error_description||'Falha na conexão ('+r.status+')')}if(r.status===204)return null;const t=await r.text();return t?JSON.parse(t):null}
@@ -315,6 +319,10 @@ async function restoreSession(){
   else if(!fragment.has('error_description'))status('Digite seu e-mail e receba um link para entrar. Seu acesso continua salvo no navegador após a entrada, enquanto a sessão estiver válida.');
 }
 updateAccountUI();
+const accountDetails=$('cloudPanel');
+document.addEventListener('click',e=>{if(accountDetails.open&&!accountDetails.contains(e.target))accountDetails.open=false});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&accountDetails.open){accountDetails.open=false;$('cloudMenuTrigger').focus()}});
+if(window.location.hash.includes('access_token='))accountDetails.open=true;
 restoreSession();
 })();
 </script></body>
