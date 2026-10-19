@@ -49,6 +49,30 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
 .cloud-identity strong{color:#87f5c3}.cloud-identity span{font-size:.83rem;overflow-wrap:anywhere}
 .cloud-identity[hidden]{display:none!important}
 #cloudTopState{overflow-wrap:anywhere}
+
+/* Conta compacta, próxima do início do treino */
+.account-shortcut{margin:-12px 0 14px!important;gap:0!important}
+.account-cta.account-mini{display:inline-flex;width:auto;min-height:34px;padding:6px 11px;border:1px solid #335f66;background:#16393e;color:#a8f7d6;border-radius:100px;font-size:.78rem;line-height:1.3;gap:6px;box-shadow:none}
+.account-panel{scroll-margin-top:14px;display:grid;gap:4px;margin:0 0 18px;padding:12px 15px;background:var(--panel);border:1px solid #2d4858;border-radius:14px}
+.account-panel:target{border-color:var(--cyan)}
+.account-line{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.account-main{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 140px}
+.account-icon{width:32px;height:32px;flex:0 0 32px;display:grid;place-items:center;background:#153947;border:1px solid #346575;border-radius:10px;font-size:16px}
+.account-maincopy{min-width:0}.account-maincopy h2{font-size:.9rem;line-height:1.2;margin:0 0 3px}
+.account-panel .cloud-identity{display:flex;flex-direction:row;align-items:baseline;flex-wrap:wrap;gap:5px;background:none;border:0;padding:0;margin:0;font-size:.77rem}
+.account-panel .cloud-identity strong{color:var(--green);font-size:.75rem}
+.account-panel .cloud-identity span{color:#bdcedc;font-size:.73rem;overflow-wrap:anywhere}
+.account-panel .cloud-identity[hidden]{display:none!important}
+.account-actions{display:flex;gap:7px;align-items:center;flex:0 0 auto}
+.account-actions .sidebtn{width:auto;margin:0;padding:8px 10px;font-size:.76rem;line-height:1.25;white-space:nowrap}
+.account-panel #cloudStatus{color:#9fc4cd;font-size:.73rem;line-height:1.45;margin:0}
+.account-login{display:grid;gap:6px;margin-top:5px}
+.account-login label{font-size:.78rem;color:#c0d5df}
+.account-loginrow{display:flex;gap:8px;align-items:center}
+#cloudPanel .account-login input{flex:1;min-width:0;margin:0}
+.account-loginrow .sidebtn{width:auto;margin:0;white-space:nowrap;text-align:center;font-size:.81rem;padding:11px 12px}
+.account-login small{font-size:.71rem;color:var(--muted);line-height:1.4}
+@media(max-width:580px){.account-panel{padding:11px 12px;margin-bottom:15px}.account-actions .sidebtn{font-size:.73rem;padding:8px 9px}.account-main{flex-basis:130px}.account-line{gap:8px}.account-shortcut{margin:-10px 0 10px!important}}
 </style>
 </head>
 <body>
@@ -57,12 +81,32 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
   <h1>Um passo por dia.<br><em>Mais forte a cada semana.</em></h1>
   <p class="lead">Seu treino de segunda a sábado: figuras compactas, instruções ao lado e histórico de pesagens diárias. As semanas avançam automaticamente quando os seis dias são concluídos.</p>
   <div class="chips"><span>31 anos</span><span>1,84 m</span><span>154 kg informados</span><span>6 dias organizados</span><span>Gratuito e offline</span></div>
-  <div class="account-shortcut"><a class="account-cta" href="#cloudPanel" aria-label="Ir para a seção Minha conta e entrar com e-mail">☁ Minha conta <span aria-hidden="true">↓</span></a><span id="cloudTopState">Entre para sincronizar seus treinos e suas pesagens.</span></div>
+  <div class="account-shortcut"><a id="cloudTopState" class="account-cta account-mini" href="#cloudPanel" aria-label="Abrir opções da minha conta">☁ Entrar na conta ↓</a></div>
 </header>
 <main>
+  <section class="account-panel" id="cloudPanel" aria-label="Conta e sincronização">
+  <div class="account-line">
+    <div class="account-main">
+      <span class="account-icon" aria-hidden="true">🔒</span>
+      <div class="account-maincopy"><h2>Minha conta</h2>
+        <div id="cloudIdentity" class="cloud-identity" hidden><strong>✓ Conectado</strong><span id="cloudEmailDisplay"></span></div>
+      </div>
+    </div>
+    <div class="account-actions">
+      <button id="cloudSync" type="button" class="sidebtn" hidden>↻ Sincronizar</button>
+      <button id="cloudLogout" type="button" class="sidebtn" hidden>↪ Sair</button>
+    </div>
+  </div>
+  <p id="cloudStatus" role="status" aria-live="polite">Entre para salvar seus treinos e pesagens na nuvem.</p>
+  <form id="cloudLogin" class="account-login">
+    <label for="cloudEmail">Seu e-mail</label>
+    <div class="account-loginrow"><input id="cloudEmail" type="email" autocomplete="email" inputmode="email" required placeholder="Digite seu e-mail"><button type="submit" id="cloudLoginButton" class="sidebtn">Enviar link</button></div>
+    <small>Na primeira vez, toque no link enviado ao seu e-mail. O acesso permanecerá salvo neste navegador enquanto a sessão for válida.</small>
+  </form>
+</section>
   <div class="layout">
     <section>
-      <div class="controls"><div class="weekpick"><label for="week">Semana atual</label><select id="week"><option value="1">Semana 1 — adaptação</option><option value="2">Semana 2 — ritmo</option><option value="3">Semana 3 — constância</option><option value="4">Semana 4 — evolução</option></select></div><a class="jumpbtn" href="#cloudPanel">☁ Minha conta ↓</a><a class="jumpbtn" href="#acompanhamento">◴ Ver evolução ↓</a><button type="button" id="print" class="ghost">🖨 Imprimir dia</button></div>
+      <div class="controls"><div class="weekpick"><label for="week">Semana atual</label><select id="week"><option value="1">Semana 1 — adaptação</option><option value="2">Semana 2 — ritmo</option><option value="3">Semana 3 — constância</option><option value="4">Semana 4 — evolução</option></select></div><a class="jumpbtn" href="#acompanhamento">◴ Ver evolução ↓</a><button type="button" id="print" class="ghost">🖨 Imprimir dia</button></div>
       <div id="todaybar" class="weeknote" style="margin-bottom:12px"></div><nav class="daybar" aria-label="Escolha o dia do treino" id="daybar"></nav>
       <div class="dayhead"><div><div class="eyebrow" id="dayname">Segunda-feira</div><h2 id="dayfocus">Corpo inteiro</h2><p id="dayintro"></p></div><span class="pill" id="daytype">Força</span></div>
       <div class="weeknote" id="weeknote"></div>
@@ -71,8 +115,7 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
     </section>
     <aside class="sidebar">
       <div class="sidecard"><div class="eyebrow">Seu acompanhamento</div><h3>Progresso desta fase</h3><div class="num" id="allprogress">0%</div><div class="progressouter"><span id="allprogressbar"></span></div><p>Marque cada movimento ao concluir. A cada semana completa você avança automaticamente. O histórico permanece neste navegador.</p><button class="sidebtn" id="resetday">↺ Desmarcar o dia atual</button></div>
-      <div class="sidecard" id="cloudPanel"><div class="eyebrow">Seus dados protegidos</div><h3>Minha conta</h3><div id="cloudIdentity" class="cloud-identity" hidden><strong>✓ Conectado com segurança</strong><span id="cloudEmailDisplay"></span></div><p id="cloudStatus" role="status" aria-live="polite">Entre para acompanhar seu peso e seus treinos em mais de um aparelho.</p><form id="cloudLogin"><label for="cloudEmail">Seu Gmail</label><input id="cloudEmail" type="email" autocomplete="email" inputmode="email" required placeholder="Digite seu e-mail"><button type="submit" id="cloudLoginButton" class="sidebtn">Enviar link para entrar</button><p class="backnote">É só abrir o e-mail e tocar no link. Sem senha e sem precisar copiar códigos.</p></form>
-<button id="cloudSync" type="button" class="sidebtn" hidden>Sincronizar agora</button><button id="cloudLogout" type="button" class="sidebtn" hidden>Sair da minha conta</button><p class="backnote">Acesso privado. Não compartilhe seus links de entrada ou códigos com outras pessoas.</p></div><div class="sidecard" id="acompanhamento"><div class="eyebrow">Histórico de evolução</div><h3>Meu peso diário</h3><p>Registre o peso todos os dias. Um valor por data, com gráfico e histórico salvos neste navegador. Pese-se preferencialmente nas mesmas condições.</p>
+      <div class="sidecard" id="acompanhamento"><div class="eyebrow">Histórico de evolução</div><h3>Meu peso diário</h3><p>Registre o peso todos os dias. Um valor por data, com gráfico e histórico salvos neste navegador. Pese-se preferencialmente nas mesmas condições.</p>
 <div class="metric-summary"><div><small>Último peso</small><strong id="latestweight">—</strong></div><div><small>Variação do peso</small><strong id="weightchange">—</strong></div></div>
 <form id="metricsform" class="metricsform">
 <label>Data<input type="date" id="measuredate" required></label>
@@ -181,7 +224,7 @@ function updateAccountUI(){
  $('cloudSync').hidden=!logged;
  $('cloudLogout').hidden=!logged;
  $('cloudEmailDisplay').textContent=logged?(session.user.email||'Conta autenticada'):'';
- $('cloudTopState').textContent=logged?'✓ Conectado. Progresso e pesagens vinculados à sua conta.':'Entre para sincronizar seus treinos e suas pesagens.';
+ $('cloudTopState').textContent=logged?'☁ Conta conectada ↓':'☁ Entrar na conta ↓';
 }
 function headers(token){const h={'apikey':KEY,'Content-Type':'application/json'};if(token)h.Authorization='Bearer '+token;return h}
 async function request(path,{method='GET',body=null,token=null,prefer=null}={}){const h=headers(token);if(prefer)h.Prefer=prefer;const r=await fetch(API+path,{method,headers:h,body:body===null?null:JSON.stringify(body)});if(!r.ok){const t=await r.text();let e;try{e=JSON.parse(t)}catch{}throw Error(e?.msg||e?.message||e?.error_description||'Falha na conexão ('+r.status+')')}if(r.status===204)return null;const t=await r.text();return t?JSON.parse(t):null}
@@ -213,7 +256,7 @@ const progressRows=Object.entries(state.done).filter(([k,v])=>/^\d+:(seg|ter|qua
 await request('/rest/v1/flavio_training_profile?on_conflict=user_id',{method:'POST',token,body:{user_id:uid,current_week:state.week,current_day:state.day,completed_weeks:state.completedWeeks,updated_at:new Date().toISOString()},prefer:'resolution=merge-duplicates,return=minimal'});
 if(weightRows.length)await request('/rest/v1/flavio_daily_weights?on_conflict=user_id,weighed_on',{method:'POST',token,body:weightRows,prefer:'resolution=merge-duplicates,return=minimal'});
 if(progressRows.length)await request('/rest/v1/flavio_exercise_progress?on_conflict=user_id,week_number,day_id,exercise_index',{method:'POST',token,body:progressRows,prefer:'resolution=merge-duplicates,return=minimal'});
-status('✓ Tudo pronto! Você entrou e seus treinos e pesagens estão sincronizados.');updateAccountUI();
+status('✓ Treinos e pesagens sincronizados.');updateAccountUI();
 }catch(e){status('✓ Você entrou. A sincronização ainda não terminou: '+e.message+'. Os registros estão guardados neste aparelho; toque em “Sincronizar agora” para tentar novamente.');updateAccountUI()}finally{busy=false}
 }
 window.flavioCloudSchedule=()=>{if(!session||!loaded)return;clearTimeout(scheduled);scheduled=setTimeout(sync,1200)};
