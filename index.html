@@ -42,7 +42,7 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
 .guidebrief small{display:block;color:#b6c8d7;font-size:.74rem;margin:2px 0 0}
 @media(max-width:580px){.guideitem{grid-template-columns:118px 1fr;gap:9px;padding:9px}.guideitem img{height:124px}.guideitem p{font-size:.79rem}.guideitem h4{font-size:.89rem}}
 #cloudPanel input{display:block;width:100%;background:#0d2134;color:#eef7ff;border:1px solid #3a5b72;border-radius:9px;padding:12px;margin:6px 0 12px}#cloudPanel form button{margin:6px 0 12px}#cloudPanel [hidden]{display:none!important}
-.account-shortcut{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:-14px 0 24px}.account-shortcut span{color:var(--muted);font-size:.85rem}.account-cta{background:var(--green);color:#062e2a;padding:12px 15px;border-radius:12px;font-weight:850;text-decoration:none;display:inline-flex;align-items:center;gap:10px}.account-cta:hover{filter:brightness(1.08)}#cloudPanel{scroll-margin-top:18px}#cloudPanel:target{outline:2px solid var(--cyan);outline-offset:3px}
+.account-shortcut{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:-14px 0 24px}.account-shortcut span{color:var(--muted);font-size:.85rem}.account-cta{background:var(--green);color:#062e2a;padding:12px 15px;border-radius:12px;font-weight:850;text-decoration:none;display:inline-flex;align-items:center;gap:10px}.account-cta:hover{filter:brightness(1.08)}#cloudPanel{scroll-margin-top:18px}#cloudPanel:target{outline:none}
 @media(max-width:580px){.account-shortcut{margin:-8px 0 19px;gap:6px}.account-shortcut span{font-size:.76rem}.account-cta{width:100%;justify-content:center;padding:12px 10px}.controls .jumpbtn{margin-left:0}}
 
 .cloud-identity{border:1px solid #47ab85;background:#113b37;padding:12px;border-radius:10px;margin:8px 0 12px;display:flex;flex-direction:column;gap:3px;color:#dcfff0;font-size:.87rem}
@@ -100,6 +100,10 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
 }
 /* Em um celular no modo 'site para computador' o navegador reduz a página.
    O modo móvel normal mantém seu CSS próprio, sem alterações. */
+
+/* Foco acessível apenas no botão arredondado, sem retângulo no menu */
+.account-menu:target{outline:none!important;box-shadow:none!important}
+.account-trigger:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;border-radius:999px}
 </style>
 </head>
 <body>
