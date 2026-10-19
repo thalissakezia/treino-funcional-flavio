@@ -79,6 +79,27 @@ main{max-width:1180px;margin:auto;padding:0 24px 60px}.layout{display:grid;grid-
 .account-popup .account-login .sidebtn{width:100%;margin:0;text-align:center;padding:10px}
 .account-popup .account-login small{font-size:.73rem;color:#a7bed0;font-weight:400;letter-spacing:normal;text-transform:none}
 @media(max-width:580px){.brand{font-size:.73rem;letter-spacing:.06em}.brand-name{gap:4px}.brandmark{width:30px;height:30px;margin-right:4px}.account-trigger{padding:6px 8px;min-height:32px;font-size:.74rem}.account-popup{width:min(330px,calc(100vw - 24px));padding:13px}}
+
+/* Desktop amplo: treinos em duas colunas e os painéis de acompanhamento
+   abaixo dos exercícios para evitar grandes vazios ao lado da lista. */
+@media (min-width: 921px) {
+  .layout{display:block}
+  .layout > section{margin-bottom:28px;min-width:0}
+  #exercises.list{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch}
+  #exercises .exercise{grid-template-columns:minmax(130px,27%) minmax(0,1fr);height:100%;min-height:185px}
+  #exercises .visual{min-height:185px}
+  #exercises .exerciseinfo{padding:15px;gap:7px}
+  #exercises .instruction{font-size:.88rem;line-height:1.45}
+  .layout .sidebar{display:block;position:static;columns:2;column-gap:18px}
+  .layout .sidebar > .sidecard{display:inline-block;width:100%;break-inside:avoid-column;-webkit-column-break-inside:avoid;margin:0 0 18px;vertical-align:top}
+}
+@media (min-width: 921px) and (max-width: 1070px) {
+  #exercises .exercise{grid-template-columns:minmax(112px,25%) minmax(0,1fr)}
+  #exercises .exerciseinfo{padding:11px}
+  .layout .sidebar{column-gap:14px}
+}
+/* Em um celular no modo 'site para computador' o navegador reduz a página.
+   O modo móvel normal mantém seu CSS próprio, sem alterações. */
 </style>
 </head>
 <body>
