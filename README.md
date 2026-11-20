@@ -1,36 +1,29 @@
 # Treino funcional do Flávio
 
-Treinos ilustrados e compactos de segunda a sábado, seleção automática do dia atual, controle das semanas, registro diário do peso, gráfico de evolução e sincronização de dados privados usando Supabase.
+Site de treino funcional feito para o Flávio, com treinos ilustrados de segunda a sábado.
 
-## Publicação — falta ativar o GitHub Pages
+Site: https://thalissakezia.github.io/treino-funcional-flavio/
 
-O arquivo do site (`index.html` e `imagens/`) está no repositório. A automação [Publicar Treino do Flávio](../../actions/workflows/publicar-site.yml) foi criada e validou os arquivos, porém o job `Configurar Pages` falhou porque o Pages ainda não está ativado.
+## O que o site faz
 
-Faça **uma vez**:
-1. Abra **Settings > Pages** em `https://github.com/thalissakezia/treino-funcional-flavio/settings/pages`.
-2. Em **Build and deployment > Source**, selecione **GitHub Actions**. Salve se houver botão.
-3. O próximo push em `main` publicará o site automaticamente, ou acione **Run workflow** na aba Actions.
+- Abre direto no treino do dia
+- Mostra cada exercício com imagem, séries e repetições
+- Controla as semanas do programa
+- Registra o peso diário e mostra um gráfico da evolução
+- Login por código no e-mail e sincronização entre aparelhos (Supabase)
+- Funciona offline e permite guardar e recuperar uma cópia dos dados
 
-Endereço esperado após publicação: `https://thalissakezia.github.io/treino-funcional-flavio/`.
+## Tecnologias
 
-## Supabase — falta concluir as configurações de autenticação
+- HTML, CSS e JavaScript
+- Supabase (autenticação e banco com Row Level Security)
+- GitHub Pages e GitHub Actions para publicar
 
-O projeto gratuito `treino-funcional-flavio` está ativo. O banco contém três tabelas com Row Level Security por usuário autenticado. O cliente web usa somente a **publishable key** (segura para frontend), nunca uma chave secreta.
+## Configuração
 
-Configure uma vez no painel do projeto:
-1. Em **Authentication > URL Configuration**:
-   - **Site URL:** `https://thalissakezia.github.io/treino-funcional-flavio/`
-   - **Redirect URLs:** inclua `https://thalissakezia.github.io/treino-funcional-flavio/**`
-2. Em **Authentication > Email Templates > Magic Link**, cole o conteúdo de [`supabase/email-templates/magic-link.html`](supabase/email-templates/magic-link.html) e salve, para enviar código e link no mesmo e-mail.
+1. Em Settings > Pages, escolha GitHub Actions como fonte. Cada push na `main` publica o site.
+2. No Supabase, em Authentication > URL Configuration, coloque o endereço do site em Site URL e em Redirect URLs.
+3. Em Authentication > Email Templates > Magic Link, use o modelo de `supabase/email-templates/magic-link.html` para mandar o código e o link no mesmo e-mail.
+4. A estrutura do banco está em `supabase/migrations`.
 
-O site suporta tanto a digitação do código quanto o clique em um link de autenticação, quando o domínio está autorizado. Enquanto o modelo de e-mail não for atualizado, há também um campo para colar um link de acesso recebido.
-
-## Privacidade e backup
-
-Pesagens e exercícios são vinculados à conta autenticada no banco privado. O navegador guarda uma cópia local para uso offline e o site disponibiliza **Guardar uma cópia** e **Recuperar meus dados**. A sincronização em dois aparelhos ainda precisa ser testada com um login verdadeiro depois das configurações acima.
-
-**Nunca publique** arquivos com seus pesos, backups pessoais, senhas ou tokens de autenticação no GitHub. Este repositório é público.
-
-## Manutenção
-
-A atualização é feita diretamente em `index.html` e `imagens/`. A automação antiga que importava o ZIP foi desativada, para evitar a substituição da versão atual por um pacote desatualizado.
+O site usa só a chave pública (publishable key) do Supabase. Chaves secretas, tokens e backups com dados pessoais não devem ir para este repositório, que é público.
